@@ -37,12 +37,14 @@
 					'Upgrade-Insecure-Requests: 1'
 				);
 		
-			public function __construct( $error_tag = NULL )
+			public function __construct( $error_tag = NULL, $debug = FALSE )
 				{
-					$settings = $this->settings;
+					$this->settings['debug'] = $debug;
 
 					if( !is_null( $error_tag ) )
 						$this->settings['error_tag'] = $error_tag;
+
+					$settings = $this->settings;
 
 					debug( 'Start Crawler initialization...');
 					#array_push( $settings['headers'], $settings['host'] );
@@ -154,7 +156,7 @@
 
 			public function setOpt( $opt, &$val )
 				{
-					debug( 'Set crawler option' );
+					debug( 'Set crawler option ' . $opt . ' > ' . $val );
 					curl_setopt( $this->web, constant( $opt ), $val ); // Filename to save image
 				}
 		}
